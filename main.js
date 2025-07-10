@@ -178,23 +178,21 @@ const template = [
   },
 ];
 
-
 ipcMain.on("register-client", async (event, registerClient) => {
-
   try {
     const newClient = clientModel({
-      gmail: registerClient.gmailCli,
-      telefone: registerClient.telCli,
-      cpf: registerClient.cpfCli,
-      nome: registerClient.nomeCli,
-      sexo: registerClient.sexoCli,
-      cep: registerClient.cepCli,
-      bairro: registerClient.bairroCli,
-      numero: registerClient.numCli,
-      complemento: registerClient.compCli,
-      estado: registerClient.ufCli,
-      cidade: registerClient.cidCli,
-      logradouro: registerClient.lograCli,
+        email: registerClient.gmail,
+        celNumber: registerClient.celNumber,
+        cpf: registerClient.cpf,
+        name: registerClient.name,
+        gender: registerClient.gender,
+        zipcode: registerClient.zipcode,
+        district: registerClient.district,
+        number: registerClient.number,
+        complement: registerClient.complement,
+        state: registerClient.state,
+        city: registerClient.city,
+        street: registerClient.street,
     });
     await newClient.save();
     //confirmaçao do cliente adicionado ao banco (uso do dialog)
@@ -245,12 +243,12 @@ async function relatorioClientes() {
     //A4(tamanho da "folha") (210mm por 297mm)
 
     //inserir a data atual no documento
-    const dataAtual = new Date().toLocaleDateString("pt-BR");
+    const actualDate = new Date().toLocaleDateString("pt-BR");
     //a linha abaixo escreve um texto no documento
     //doc.text() coloca um texto dentro do pdf
     //doc.setFontSize() tamanho da fonte por px
     doc.setFontSize(10);
-    doc.text(`Data: ${dataAtual}`, 170, 15); //(x,y (mm))
+    doc.text(`Data: ${actualDate}`, 170, 15); //(x,y (mm))
     doc.setFontSize(18);
     doc.text(`Relatorio De Clientes`, 15, 20);
     doc.setFontSize(12);
@@ -273,13 +271,13 @@ async function relatorioClientes() {
     //          obter a listagem de clientes (ordem alfabetica)
     //====================================================
 
-    const clientes = await clientModel.find().sort({ nome: 1 });
+    const client = await clientModel.find().sort({ name: 1 });
     //teste de recebimento
     //console.log(clientes)
     //popular o documento pdf com os lcientes cadastrados
 
     y += 10;
-    clientes.forEach((c) => {
+    client.forEach((c) => {
       if (y > 280) {
         doc.addPage();
         y = 20;
@@ -288,9 +286,7 @@ async function relatorioClientes() {
         doc.text("E-mail", 130, y);
       }
 
-      doc.text(c.nome, 14, y);
-      doc.text(c.telefone, 85, y);
-      doc.text(c.gmail, 130, y);
+      doc.text(c.email, 130, y);
       y += 10;
     });
 
@@ -444,29 +440,28 @@ ipcMain.on("delete-client", async (event, id) => {
 //=========================== CRUD EDIT- FIM =====================================
 
 ipcMain.on("edit-client", async (event, registerClient) => {
-
   try {
-    const updateClient =  await clientModel.findByIdAndUpdate(
+    const updateClient = await clientModel.findByIdAndUpdate(
       registerClient.idCli,
       {
-      gmail: registerClient.gmailCli,
-      telefone: registerClient.telCli,
-      cpf: registerClient.cpfCli,
-      nome: registerClient.nomeCli,
-      sexo: registerClient.sexoCli,
-      cep: registerClient.cepCli,
-      bairro: registerClient.bairroCli,
-      numero: registerClient.numCli,
-      complemento: registerClient.compCli,
-      estado: registerClient.ufCli,
-      cidade: registerClient.cidCli,
-      logradouro: registerClient.lograCli,
-    },
-  {
-    new: true
-  }
-  );
-    //confirmaçao do cliente adicionado ao banco (uso do dialog)
+        email: registerClient.gmail,
+        celNumber: registerClient.celNumber,
+        cpf: registerClient.cpf,
+        name: registerClient.name,
+        gender: registerClient.gender,
+        zipcode: registerClient.zipcode,
+        district: registerClient.district,
+        number: registerClient.number,
+        complement: registerClient.complement,
+        state: registerClient.state,
+        city: registerClient.city,
+        street: registerClient.street,
+      },
+      {
+        new: true,
+      }
+    );
+    //confirmaçao do cliente adicionado ao banco (uso do dialog)]
     dialog
       .showMessageBox({
         type: "info",

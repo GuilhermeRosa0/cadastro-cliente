@@ -1,4 +1,3 @@
-
 let frmProfile = document.getElementById("frmProfile");
 let frmSearchClient = document.getElementById("frmSearchClient");
 let email = document.getElementById("email");
@@ -55,7 +54,7 @@ function searchAddress() {
       document.getElementById("state").value = data.uf;
       document.getElementById("complement").value = data.complemento;
     })
-    .catch(error)
+    .catch(error);
 }
 
 function validateCpf(cpf) {
@@ -85,8 +84,7 @@ function validateCpf(cpf) {
   return true;
 }
 
-// Checar CPF
-function testaCPF() {
+function testCpf() {
   let inputCPF = document.getElementById("cpf");
   let CPFAlert = document.getElementById("CPFAlert");
   if (!validateCpf(inputCPF.value)) {
@@ -108,43 +106,40 @@ frmProfile.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (id.value === "") {
     const registerClient = {
-      gmailCli: email.value,
-      telCli: celNumber.value,
-      cpfCli: cpf.value,
-      nomeCli: name.value,
-      sexoCli: gender.value,
-      cepCli: zipcode.value,
-      bairroCli: district.value,
-      numCli: number.value,
-      compCli: complement.value,
-      ufCli: state.value,
-      cidCli: city.value,
-      lograCli: street.value,
+      gmail: email.value,
+      celNumber: celNumber.value,
+      cpf: cpf.value,
+      name: name.value,
+      gender: gender.value,
+      zipcode: zipcode.value,
+      district: district.value,
+      number: number.value,
+      complement: complement.value,
+      state: state.value,
+      city: city.value,
+      street: street.value,
     };
     api.registerClient(registerClient);
   } else {
-
     //alterar os dados de um cliente existente
     const registerClient = {
       idCli: id.value,
-      gmailCli: email.value,
-      telCli: celNumber.value,
-      cpfCli: cpf.value,
-      nomeCli: name.value,
-      sexoCli: gender.value,
-      cepCli: zipcode.value,
-      bairroCli: district.value,
-      numCli: number.value,
-      compCli: complement.value,
-      ufCli: state.value,
-      cidCli: city.value,
-      lograCli: street.value,
-
-
+      gmail: email.value,
+      celNumber: celNumber.value,
+      cpf: cpf.value,
+      name: name.value,
+      gender: gender.value,
+      zipcode: zipcode.value,
+      district: district.value,
+      number: number.value,
+      complement: complement.value,
+      state: state.value,
+      city: city.value,
+      street: street.value,
     };
     //mandar o cliente pro birigubeigos
 
-    api.updateClient(registerClient)
+    api.updateClient(registerClient);
   }
 });
 
@@ -160,7 +155,6 @@ function teclaEnter(event) {
 }
 
 frmSearchClient.addEventListener("keydown", teclaEnter);
-
 
 function restaurarEnter() {
   frmSearchClient.removeEventListener("keydown", teclaEnter);
@@ -197,7 +191,7 @@ api.setCpf((args) => {
   //focar no campo nome
   cpf.focus();
   console.log(busca);
-  console.log("4")
+  console.log("4");
   let valorBusca = searchBar.value;
   console.log(valorBusca);
   //copiar o nome do cliente para o campo nome
@@ -224,18 +218,18 @@ function clientSearch() {
       //uso do laço foreach para percorrer o vetor e extrair os dados
       arrayClient.forEach((c) => {
         id.value = c._id;
-        name.value = c.nome;
-        email.value = c.gmail;
-        celNumber.value = c.telefone;
+        name.value = c.name;
+        email.value = c.email;
+        celNumber.value = c.celNumber;
         cpf.value = c.cpf;
-        gender.value = c.sexo;
-        zipcode.value = c.cep;
-        district.value = c.bairro;
-        number.value = c.numero;
-        complement.value = c.complemento;
-        state.value = c.estado;
-        city.value = c.cidade;
-        street.value = c.logradouro;
+        gender.value = c.gender;
+        zipcode.value = c.zipcode;
+        district.value = c.district;
+        number.value = c.number;
+        complement.value = c.complement;
+        state.value = c.state;
+        city.value = c.city;
+        street.value = c.street;
 
         restaurarEnter();
         btnCreate.disabled = true;
@@ -246,7 +240,6 @@ function clientSearch() {
   } else {
     api.searchName(searchBar.value);
     api.renderClient((event, client) => {
-
       //passo 6- cobverter os dados de string para json. renderizaçao dos dados para o html
       const clientData = JSON.parse(client);
       arrayClient = clientData;
@@ -279,7 +272,7 @@ function clientSearch() {
 //================================================================================
 //=========================== CRUD DELETE- FIM ===================================
 function removeClient() {
-  console.log(id.value)
+  console.log(id.value);
   //console.log("teste1")
   //recebimento e envio do id para o main
   api.deleteClient(id.value);
@@ -287,4 +280,3 @@ function removeClient() {
 
 //=========================== CRUD DELETE- FIM ===================================
 //================================================================================
-

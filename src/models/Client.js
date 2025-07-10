@@ -2,10 +2,10 @@ const { model, Schema, version } = require("mongoose");
 
 const clientSchema = new Schema(
   {
-    gmail: {
+    email: {
       type: String,
     },
-    telefone: {
+    celNumber: {
       type: String,
     },
     cpf: {
@@ -13,31 +13,31 @@ const clientSchema = new Schema(
       unique: true,
       index: true,
     },
-    nome: {
+    name: {
       type: String,
     },
-    sexo: {
+    gender: {
       type: String,
     },
-    cep: {
+    zipcode: {
       type: String,
     },
-    bairro: {
+    district: {
       type: String,
     },
-    numero: {
+    number: {
       type: String,
     },
-    complemento: {
+    complement: {
       type: String,
     },
-    estado: {
+    state: {
       type: String,
     },
-    cidade: {
+    city: {
       type: String,
     },
-    logradouro: {
+    street: {
     type: String,
     },
   },
