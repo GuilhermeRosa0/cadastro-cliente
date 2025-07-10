@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' " />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de Clientes</title>
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../public/css/profile.css" />
+</head>
+
+<body class="bg-dark text-light">
+  <form id="frmSearchClient">
+    <div class="container row">
+      <div class="form-group col-md-10">
+        <input id="searchClient" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+      </div>
+      <div class="form-group col-md-2">
+        <button type="button" class="btn btn-success" onclick="clientSearch()" id="searchButton">Buscar</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+
+  <div>
+    <section class="container">
+      <form id="frmProfile">
+        <label for="id" style="display: none;">ID</label>
+        <input type="text" class="form-control" id="id" style="display: none;" />
+        <div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Email*</label>
+              <input type="email" class="form-control" id="email" required />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="celNumber">Telefone</label>
+              <input type="text" value="+55 " class="form-control" id="celNumber" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="name">Nome Completo*</label>
+              <input type="text" class="form-control" id="name" required />
+            </div>
+            <div class="form-group col-md-4">
+              <div class="CPFAlert" id="CPFAlert">
+                CPF inválido, tente novamente
+              </div>
+              <label id="cpfEdge" for="cpf">CPF</label>
+              <input type="text" maxlength="15" onblur="testaCPF()" class="form-control" id="cpf" />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="gender">Sexo</label>
+              <select id="gender" class="form-control">
+                <option value="female">Feminino</option>
+                <option value="male">Masculino</option>
+                <option value="other">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="zipcode">CEP:</label>
+              <input type="text" id="zipcode" onblur="searchAddress()" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="district">Bairro:</label>
+              <input id="district" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="street">Logradouro: </label>
+              <input id="street" type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label for="number">Numero</label>
+              <input id="number" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="complement">Complemento: </label>
+              <input id="complement" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="state">Estado</label>
+              <select id="state" class="form-control">
+                <option selected>Escolher...</option>
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM">AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="city">Cidade</label>
+              <input type="text" id="city" class="form-control" />
+            </div>
+          </div>
+      </form>
+      <button type="submit" class="btn btn-success" id="btnCreate">
+        Salvar
+      </button>
+      <button class="btn btn-warning" type="submit" id="btnUpdate" disabled>
+        Editar
+      </button>
+      <button class="btn btn-danger" type="button" id="btnDelete" onclick="removeClient()" disabled>
+        Excluir
+      </button>
+      <button type="reset" class="btn" onclick="resetForm()" id="btnReset"></button>
+  </div>
+  </section>
+  </div>
+  <script src="rendererCadastro.js"></script>
+</body>
+
+</html>
